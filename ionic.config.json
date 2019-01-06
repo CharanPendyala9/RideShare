@@ -1,0 +1,12 @@
+{
+  "name": "ionic2rideshare",
+  "integrations": {},
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ],
+  "id": "72eaaef2"
+}
