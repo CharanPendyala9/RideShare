@@ -1,0 +1,43 @@
+<!--
+  This template is for 'places' state (app.js)
+  places is a $scope variable in PlacesCtrl (controllers.js)
+  PlacesCtrl pull data from Places model
+-->
+<ion-view view-title="Choose your drop off">
+  <ion-content>
+    <ion-list>
+
+      <div class="item item-divider">Recent</div>
+
+      <ion-item class="item-icon-left" ng-repeat="place in recentPlaces" ui-sref="home">
+        <div class="icon text-center has-label">
+          <i class="ion-ios-location-outline icon-small"></i>
+          <span class="item-icon-label">
+            {{ place.distance }} km
+          </span>
+        </div>
+
+        <div>
+          <div class="bold">{{ place.name }}</div>
+          <span>{{ place.address }}</span>
+        </div>
+      </ion-item>
+
+      <div class="item item-divider">Nearby</div>
+
+      <ion-item class="item-icon-left" ng-repeat="place in places" ui-sref="home">
+        <div class="icon text-center has-label">
+          <i class="ion-ios-location-outline icon-small"></i>
+          <span class="item-icon-label">
+            {{ place.distance }} km
+          </span>
+        </div>
+        <div>
+          <div class="bold">{{ place.name }}</div>
+          <span>{{ place.address }}</span>
+        </div>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

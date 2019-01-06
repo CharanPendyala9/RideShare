@@ -1,0 +1,39 @@
+<!--
+  This template loads for the 'finding' state (app.js)
+  Show list of drivers with distance
+  drivers is a $cope variable in FindingCtrl (controllers.js)
+  FindingCtrl pull data from Drivers service (services.js)
+-->
+<ion-view view-title="Add a route" ng-init="init()">
+  <ion-content class="balanced-bg" scroll="false">
+
+    <!-- Green circle with marker icon in the center -->
+    <div class="padding text-center">
+      <div class="location-animation circle">
+        <i class="ion ion-location light"></i>
+      </div>
+    </div>
+
+      <!--
+      <div class="list list-drivers padding">
+      <div class="item" ng-repeat="driver in drivers">
+        <span>{{ driver.name }}</span>
+        <span class="pull-right">{{ driver.status }}...</span>
+      </div>
+    </div> -->
+  <div class="list list-drivers padding">
+   <input class="item" id="d_name" type="text" style="width:100%; height:40%;" placeholder=" Name">
+   <input class="item" id="d_source" type="text" style="width:100%; height:40%;" placeholder=" Source">
+   <input class="item" id="d_dest" type="text" style="width:100%; height:40%;" placeholder=" Destination">
+   <input class="item" id="d_contact" type="text" style="width:100%; height:40%;" placeholder=" Contact">
+   <textarea class="item" id="d_info" style="width:100%; height:40%;" placeholder=" Timinigs and other information"></textarea>
+ </div>
+ <div class="padding">
+   <button style="background-color:green"class="button button-block button-balanced" onclick="">
+     Submit
+   </button>
+   <br/>
+ </div>
+
+  </ion-content>
+</ion-view>

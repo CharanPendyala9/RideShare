@@ -6,22 +6,34 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
-
+.directive('disableTap', function($timeout) {
+  return {
+    link: function() {
+      $timeout(function() {
+        // Find google places div
+        _.findIndex(angular.element(document.querySelectorAll('.pac-container')), function(container) {
+          // disable ionic data tab
+          container.setAttribute('data-tap-disabled', 'true');
+          // leave input field if google-address-entry is selected
+          container.onclick = function() {
+            document.getElementById('pick-up').blur();
+          };
+        });
+      },500);
+    }
+  }
+})
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs).
-    // The reason we default this to hidden is that native apps don't usually show an accessory bar, at
-    // least on iOS. It's a dead giveaway that an app is using a Web View. However, it's sometimes
-    // useful especially with forms, though we would prefer giving the user a little more room
-    // to interact with the app.
-    if (window.cordova && window.Keyboard) {
-      window.Keyboard.hideKeyboardAccessoryBar(true);
-    }
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
 
+    }
     if (window.StatusBar) {
-      // Set the statusbar to use the default style, tweak this to
-      // remove the status bar on iOS or change it to use white instead of dark colors.
+      // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
   });
@@ -35,55 +47,91 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
-    .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
+  // Home screen
+  .state('home', {
+    //cache: false,
+    url: '/home',
+    templateUrl: 'templates/home.html',
+    controller: 'HomeCtrl'
   })
 
-  // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-      }
-    }
+  // Search for a place
+  .state('places', {
+    url: '/places',
+    templateUrl: 'templates/places.html',
+    controller: 'PlacesCtrl'
   })
 
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+  // Choose payment method
+  .state('payment_method', {
+    url: '/payment-method',
+    templateUrl: 'templates/payment-method.html',
+    controller: 'PaymentMethodCtrl'
+  })
 
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  });
+  // Find a driver
+  .state('finding', {
+    url: '/finding',
+    templateUrl: 'templates/finding.html',
+    controller: 'FindingCtrl'
+  })
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  // Show driver profile
+  .state('driver', {
+    url: '/driver',
+    templateUrl: 'templates/driver.html',
+    controller: 'DriverCtrl'
+  })
+
+  // Tracking driver position
+  .state('tracking', {
+    url: '/tracking',
+    templateUrl: 'templates/tracking.html',
+    controller: 'TrackingCtrl'
+  })
+
+  // Show history
+  .state('history', {
+    url: '/history',
+    templateUrl: 'templates/history.html',
+    controller: 'HistoryCtrl'
+  })
+
+  // Show notifications
+  .state('notification', {
+    url: '/notification',
+    templateUrl: 'templates/notification.html',
+    controller: 'NotificationCtrl'
+  })
+
+  // Support form
+  .state('support', {
+    url: '/support',
+    templateUrl: 'templates/support.html',
+    controller: 'SupportCtrl'
+  })
+
+  // Profile page
+  .state('profile', {
+    url: '/profile',
+    templateUrl: 'templates/profile.html',
+    controller: 'ProfileCtrl'
+  })
+
+  // login screen
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'AuthCtrl'
+  })
+
+  // register screen
+  .state('register', {
+    url: '/register',
+    templateUrl: 'templates/register.html',
+    controller: 'AuthCtrl'
+  })
+    // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/home');
 
 });
